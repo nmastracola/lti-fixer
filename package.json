@@ -1,0 +1,26 @@
+{
+  "name": "lti-fixer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "export.js",
+  "dependencies": {
+    "async": "^3.1.1",
+    "axios": "^0.19.2",
+    "axios-concurrency": "^1.0.3",
+    "chalk": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "find-in-files": "^0.5.0",
+    "inquirer": "^7.0.4",
+    "mkdirp": "^1.0.3",
+    "path": "^0.12.7",
+    "progress": "^2.0.3",
+    "xml2js": "^0.4.23",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
