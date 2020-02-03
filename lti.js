@@ -15,10 +15,6 @@ const domain = 'wcln'
 const course = 52
 
 
-
-
-// const getDirectories = srcPath => fs.readdirSync(srcPath).filter(file => fs.statSync(path.join(srcPath, file)).isDirectory())
-
 const headers = {
   headers: {
     Authorization: "Bearer " + config.token
