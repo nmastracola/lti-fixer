@@ -11,8 +11,8 @@ const { ConcurrencyManager } = require('axios-concurrency')
 const MAX_CONCURRENT_REQUESTS = 3
 const manager = ConcurrencyManager(axios, MAX_CONCURRENT_REQUESTS)
 
-const domain = 'wcln'
-const course = 52
+const domain = 'abbyschools'
+const course = 195
 
 
 const headers = {
@@ -23,21 +23,24 @@ const headers = {
 
 (async () => {
   try {
-    const idRegex = /(?<=<lti id=").*\d(?=">)/
-    const nameRegex = /(?<=<name>).*(?=<\/name>)/
+    const idRegex = /(?<=<instructorcustomparameters>id=).*(?=<\/instructorcustomparameters>)/gmsi
+    const nameRegex = /(?<=<name>).*?(?=<\/name>)/gms
+    const toolRegex = /(?<=<toolurl>).*(?=<\/toolurl>)/gmsi
 
     const lti = []
 
     await findInFiles
-    .find({'term': "(?=<lti id).*?<\/name>", 'flags': 'gms'}, './Physics_11_(ph11)-20191121-0109-nu', '.xml$')
+    .find({'term': "(?=<name>).*(<\/instructorcustomparameters>)", 'flags': 'gms'}, './CLC-20190731-0058-nu', '.xml$')
     .then(results => {
         for (var result in results) {
             var res = results[result];
             let id = res.matches[0].match(idRegex)
             let name = res.matches[0].match(nameRegex)
+            let tool = res.matches[0].match(toolRegex)
             data = {
               id: id[0],
-              name: name[0]
+              name: name[0],
+              tool: tool[0]
             }
             lti.push(data)
         }
@@ -122,7 +125,7 @@ const headers = {
               "turnitin_enabled": assignment.turnitin_enabled,
               "vericite_enabled": assignment.vericite_enabled,
               "external_tool_tag_attributes": {
-                "url": `https://wcln.ca/local/lti/index.php?id=${found.id}&type=book`,
+                "url": `${found.tool}&custom_id=${found.id}`,
                 "content_type": "",
                 "content_id": "",
                 "new_tab": "0"
